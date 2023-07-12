@@ -1,5 +1,9 @@
 #include "GLFW/glfw3.h"
 
+#include "Paddle.h"
+
+#define Max
+
 int main(void)
 {
     GLFWwindow* window;
@@ -9,7 +13,7 @@ int main(void)
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(1000, 800, "Pong", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -19,17 +23,21 @@ int main(void)
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
+    Paddle* paddle = new Paddle(GLFW_KEY_W, GLFW_KEY_S);
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
+        int keyWState = glfwGetKey(window, GLFW_KEY_W);
+        int keySState = glfwGetKey(window, GLFW_KEY_S);
+        paddle->ReceiveInput(keyWState);
+        paddle->ReceiveInput(keySState * -1);
+
+        paddle->OnUpdate(1.0f);
+
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glBegin(GL_TRIANGLES);
-        glVertex2f(-0.5f, -0.5f);
-        glVertex2f(0.5f, -0.5f);
-        glVertex2f(0.0f, 0.5f);
-        glEnd();
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
