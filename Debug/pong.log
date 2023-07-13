@@ -1,4 +1,2 @@
 ﻿  Paddle.cpp
-C:\Unreal\cpp_pong\src\Paddle.cpp(37,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Unreal\cpp_pong\src\Paddle.cpp(41,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   pong.vcxproj -> C:\Unreal\cpp_pong\Debug\pong.exe

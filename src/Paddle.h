@@ -1,5 +1,8 @@
 #pragma once
+#include <vector>
+#include "GL/glew.h"
 #include "Entity.h"
+
 class Paddle : public Entity
 {
 public:
@@ -12,11 +15,20 @@ public:
 	
 private:
 	void EdgeCheck();
+	void UpdateVertexBuffer();
 
 	int m_KeyUp;
 	int m_KeyDown;
 	int m_InputDirection = 0;
-	int m_Height = 50;
+	float m_Height = 50.0f;
 
 	float m_Speed = 1.0f;
+
+	unsigned int m_VB;
+	std::vector<float> m_VertexPositions;
+	unsigned int m_IBO;
+	std::vector<unsigned int> m_Indices = {
+		  0, 1, 2,
+		  2, 3, 0
+	};
 };
