@@ -141,12 +141,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="assets\shaders\vBase.shader">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="assets\shaders\fBase.shader" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Paddle.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Paddle.h" />
+    <ClInclude Include="src\Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

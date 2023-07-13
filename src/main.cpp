@@ -3,6 +3,7 @@
 
 #include "glm/gtc/matrix_transform.hpp"
 #include "Paddle.h"
+#include "Shader.h"
 
 int main(void)
 {
@@ -25,8 +26,7 @@ int main(void)
     glewInit();
 
 
-    
-
+    Shader shader = Shader("assets/shaders/vBase.shader", "assets/shaders/fBase.shader");
     Paddle* paddle = new Paddle(GLFW_KEY_W, GLFW_KEY_S);
 
     glm::mat4 proj = glm::ortho(0.0f, 100.0f, 0.0f, 800.0f, -1.0f, 1.0f);

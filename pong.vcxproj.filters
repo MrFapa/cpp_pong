@@ -21,6 +21,9 @@
     <ClCompile Include="src\Paddle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Paddle.h">
@@ -29,5 +32,16 @@
     <ClInclude Include="src\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\shaders\vBase.shader">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="assets\shaders\fBase.shader">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
