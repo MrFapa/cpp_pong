@@ -1,20 +1,11 @@
 #include "Paddle.h"
 #include "Mesh.h"
+#include "PrimitveFactory.h"
 
 Paddle::Paddle(int keyUp, int keyDown, Vector2 position)
 	: Entity(position), m_KeyUp(keyUp), m_KeyDown(keyDown)
 {
-	m_Mesh = new Mesh();
-	float halfHeight = m_Height / 2;
-	m_Mesh->SetVertexData(
-		{   -10.0f, -halfHeight,
-			10.0f, -halfHeight,
-			10.0f, halfHeight,
-			-10.0f, halfHeight}, 
-
-		{0, 1, 2,
-		 2, 3, 0}
-	);
+	m_Mesh = PrimitiveFactory::Cube(10, m_Height / 2);
 }
 
 Paddle::~Paddle()
