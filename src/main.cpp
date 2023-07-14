@@ -29,7 +29,14 @@ int main(void)
     Shader shader = Shader("assets/shaders/vBase.shader", "assets/shaders/fBase.shader");
     Paddle* paddle = new Paddle(GLFW_KEY_W, GLFW_KEY_S);
 
-    glm::mat4 proj = glm::ortho(0.0f, 100.0f, 0.0f, 800.0f, -1.0f, 1.0f);
+    glm::mat4 proj = glm::ortho(0.0f, 1000.0f, 0.0f, 800.0f, -1.0f, 1.0f);
+    glm::mat4 view = glm::lookAt(
+        glm::vec3(0.0f, 0.0f, 0.0f),   // Camera position (eye)
+        glm::vec3(0.0f, 0.0f, -1.0f),  // Target position (center)
+        glm::vec3(0.0f, 1.0f, 0.0f)    // Up vector
+    );
+    
+
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
@@ -42,6 +49,9 @@ int main(void)
         paddle->ReceiveInput(keySState * -1);
 
         paddle->OnUpdate(1.0f);
+
+        glm::mat4 model = paddle->GetModelMatrix();
+        shader.SetUniformMat4("u_MVP", proj * view * model);
         
     	paddle->OnDraw();
         

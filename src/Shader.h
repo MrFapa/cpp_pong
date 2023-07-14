@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "GL/glew.h"
 
 class Shader
@@ -12,7 +14,8 @@ public:
 
 	void Bind();
 	void Unbind();
-	
+
+	void SetUniformMat4(const std::string &name, glm::mat4 matrix);
 
 private:
 	void CreateShader(const std::string &vsSource, const std::string &fsSource);

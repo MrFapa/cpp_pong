@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "GL/glew.h"
 #include "Entity.h"
 
@@ -12,6 +14,7 @@ public:
 	void OnUpdate(float delta) override;
 	void OnDraw() override;
 	void ReceiveInput(const int input);
+	glm::mat4 GetModelMatrix() const;
 	
 private:
 	void EdgeCheck();
