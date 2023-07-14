@@ -146,11 +146,13 @@
     </Text>
     <Text Include="assets\shaders\fBase.shader" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Paddle.cpp" />
     <ClCompile Include="src\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Entity.h" />
+    <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Paddle.h" />
     <ClInclude Include="src\Shader.h" />
   </ItemGroup>

@@ -1,3 +1,4 @@
+#include "Mesh.h"
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
@@ -27,7 +28,9 @@ int main(void)
 
 
     Shader shader = Shader("assets/shaders/vBase.shader", "assets/shaders/fBase.shader");
-    Paddle* paddle = new Paddle(GLFW_KEY_W, GLFW_KEY_S);
+    Paddle* paddleLeft = new Paddle(GLFW_KEY_W, GLFW_KEY_S, {30, 400});
+    Paddle* paddleRight = new Paddle(GLFW_KEY_UP, GLFW_KEY_DOWN, {970, 400});
+    std::vector<Paddle*> paddles = { paddleLeft, paddleRight };
 
     glm::mat4 proj = glm::ortho(0.0f, 1000.0f, 0.0f, 800.0f, -1.0f, 1.0f);
     glm::mat4 view = glm::lookAt(
@@ -42,22 +45,24 @@ int main(void)
     while (!glfwWindowShouldClose(window))
     {
         double currentTimeStamp = glfwGetTime();
-
-
-
         glClear(GL_COLOR_BUFFER_BIT);
-        
-        int keyWState = glfwGetKey(window, GLFW_KEY_W);
-        int keySState = glfwGetKey(window, GLFW_KEY_S);
-        paddle->ReceiveInput(keyWState);
-        paddle->ReceiveInput(keySState * -1);
 
-        paddle->OnUpdate(currentTimeStamp - lastTimeStamp);
 
-        glm::mat4 model = paddle->GetModelMatrix();
-        shader.SetUniformMat4("u_MVP", proj * view * model);
-        
-    	paddle->OnDraw();
+        for(Paddle* paddle : paddles)
+        {
+            paddle->ReceiveInput(glfwGetKey(window, paddle->GetKeyUp()));
+            // Invert direction
+            paddle->ReceiveInput(glfwGetKey(window, paddle->GetKeyDown()) * -1);
+
+            paddle->OnUpdate(currentTimeStamp - lastTimeStamp);
+
+            glm::mat4 model = paddle->GetModelMatrix();
+            shader.SetUniformMat4("u_MVP", proj * view * model);
+
+            Mesh* mesh = paddle->GetMesh();
+            mesh->Bind();
+            mesh->Draw();
+        }
         
         lastTimeStamp = currentTimeStamp;
         /* Swap front and back buffers */

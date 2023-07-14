@@ -1,37 +1,33 @@
 #pragma once
 #include <vector>
-#include <glm/gtc/matrix_transform.hpp>
 
+#include "glm/gtc/matrix_transform.hpp"
 #include "GL/glew.h"
 #include "Entity.h"
 
+class Mesh;
+
 class Paddle : public Entity
 {
+private:
+	int m_KeyUp;
+	int m_KeyDown;
+	int m_InputDirection = 0;
+	float m_Height = 80.0f;
+	float m_Speed = 300.0f;
+	Mesh* m_Mesh;
 public:
 	Paddle(int keyUp, int keyDown, Vector2 position = {0, 0});
 	~Paddle();
 
 	void OnUpdate(double delta) override;
-	void OnDraw() override;
 	void ReceiveInput(const int input);
+
 	glm::mat4 GetModelMatrix() const;
+	Mesh* GetMesh() const { return m_Mesh; }
+	int GetKeyUp() const { return m_KeyUp; }
+	int GetKeyDown() const { return m_KeyDown; }
 	
 private:
 	void EdgeCheck();
-	void UpdateVertexBuffer();
-
-	int m_KeyUp;
-	int m_KeyDown;
-	int m_InputDirection = 0;
-	float m_Height = 80.0f;
-
-	float m_Speed = 300.0f;
-
-	unsigned int m_VB;
-	std::vector<float> m_VertexPositions;
-	unsigned int m_IBO;
-	std::vector<unsigned int> m_Indices = {
-		  0, 1, 2,
-		  2, 3, 0
-	};
 };
