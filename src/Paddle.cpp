@@ -26,9 +26,10 @@ Paddle::~Paddle()
 	glDeleteBuffers(1, &m_IBO);
 }
 
-void Paddle::OnUpdate(float delta)
+void Paddle::OnUpdate(double delta)
 {
-	m_Position.y = m_Position.y + m_InputDirection * delta;
+	m_Position.y = m_Position.y + static_cast<float>(m_InputDirection) * static_cast<float>(delta) * m_Speed;
+
 	EdgeCheck();
 	m_InputDirection = 0;
 	UpdateVertexBuffer();

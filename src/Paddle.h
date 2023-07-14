@@ -11,7 +11,7 @@ public:
 	Paddle(int keyUp, int keyDown, Vector2 position = {0, 0});
 	~Paddle();
 
-	void OnUpdate(float delta) override;
+	void OnUpdate(double delta) override;
 	void OnDraw() override;
 	void ReceiveInput(const int input);
 	glm::mat4 GetModelMatrix() const;
@@ -23,9 +23,9 @@ private:
 	int m_KeyUp;
 	int m_KeyDown;
 	int m_InputDirection = 0;
-	float m_Height = 50.0f;
+	float m_Height = 80.0f;
 
-	float m_Speed = 1.0f;
+	float m_Speed = 300.0f;
 
 	unsigned int m_VB;
 	std::vector<float> m_VertexPositions;

@@ -37,10 +37,14 @@ int main(void)
     );
     
 
-
+    double lastTimeStamp = glfwGetTime();
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
+        double currentTimeStamp = glfwGetTime();
+
+
+
         glClear(GL_COLOR_BUFFER_BIT);
         
         int keyWState = glfwGetKey(window, GLFW_KEY_W);
@@ -48,14 +52,14 @@ int main(void)
         paddle->ReceiveInput(keyWState);
         paddle->ReceiveInput(keySState * -1);
 
-        paddle->OnUpdate(1.0f);
+        paddle->OnUpdate(currentTimeStamp - lastTimeStamp);
 
         glm::mat4 model = paddle->GetModelMatrix();
         shader.SetUniformMat4("u_MVP", proj * view * model);
         
     	paddle->OnDraw();
         
-
+        lastTimeStamp = currentTimeStamp;
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
