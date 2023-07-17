@@ -11,7 +11,7 @@ Puck::Puck()
 
 Puck::~Puck()
 {
-	
+	delete m_Mesh;
 }
 
 void Puck::CheckPlayerCollision(Paddle* paddle)
@@ -33,6 +33,20 @@ void Puck::CheckPlayerCollision(Paddle* paddle)
 	m_Speed += 100;
 	
 }
+
+void Puck::CheckIfScored(Paddle* left, Paddle* right)
+{
+	if(m_Position.x - m_Width / 2 < 0)
+	{
+		right->IncrementScore();
+		Reset(false);
+	} else if(m_Position.x + m_Width / 2 > 1000)
+	{
+		left->IncrementScore();
+		Reset(true);
+	}
+}
+
 
 void Puck::OnUpdate(double delta)
 {
@@ -75,4 +89,12 @@ void Puck::CheckWallCollision()
 		m_Direction.y *= -1;
 	}
 }
+
+void Puck::Reset(bool leftScored)
+{
+	m_Direction = { leftScored ? 1.0f : -1.0f, 0.0f };
+	m_Speed = 200;
+	m_Position = { 500, 400 };
+}
+
 

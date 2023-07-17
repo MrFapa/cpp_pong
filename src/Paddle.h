@@ -12,6 +12,7 @@ private:
 	int m_KeyUp;
 	int m_KeyDown;
 	int m_InputDirection = 0;
+	int m_Score = 0;
 	float m_Height = 80.0f;
 	float m_Width = 20.0f;
 	float m_Speed = 300.0f;
@@ -23,10 +24,13 @@ public:
 	void OnUpdate(double delta) override;
 	void ReceiveInput(const int input);
 
+	void IncrementScore() { m_Score++; }
+
 	glm::mat4 GetModelMatrix() const;
 	Mesh* GetMesh() const { return m_Mesh; }
 	int GetKeyUp() const { return m_KeyUp; }
 	int GetKeyDown() const { return m_KeyDown; }
+	int GetScore() const { return m_Score; }
 	collision::BoundingBox GetBoundingBox() const;
 	
 private:

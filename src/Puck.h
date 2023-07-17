@@ -16,7 +16,9 @@ public:
 	Puck();
 	~Puck();
 
-	void CheckPlayerCollision(class Paddle* player);
+	void CheckPlayerCollision(class Paddle* paddle);
+	void CheckIfScored(class Paddle* left, class Paddle* right);
+	
 
 	void OnUpdate(double delta) override;
 
@@ -28,4 +30,5 @@ public:
 
 private:
 	void CheckWallCollision();
+	void Reset(bool leftScored);
 };

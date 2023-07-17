@@ -41,6 +41,9 @@ int main(void)
     );
 
     Puck* puck = new Puck();
+
+    int playerScoreLeft = 0;
+    int playerScoreRight = 0;
     
     double lastTimeStamp = glfwGetTime();
     /* Loop until the user closes the window */
@@ -70,6 +73,7 @@ int main(void)
         glm::mat4 model = puck->GetModelMatrix();
         shader.SetUniformMat4("u_MVP", proj * view * model);
         puck->OnUpdate(deltaTime);
+        puck->CheckIfScored(paddleLeft, paddleRight);
 
         if(puck->GetDirection().x < 0)
         {
