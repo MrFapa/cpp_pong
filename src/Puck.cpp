@@ -23,20 +23,21 @@ void Puck::CheckPlayerCollision(Paddle* paddle)
 		return;
 	}
 
-	float relativePosition = -1.0f + 2.0f * ((m_Position.y - paddleBB.min.y) / (paddleBB.max.y - paddleBB.min.y));
-
 	m_Position.x = (m_Direction.x < 0) ? paddleBB.max.x : paddleBB.min.x;
-	m_Direction.x *= -1;
+
+	float relativePosition = -1.0f + 2.0f * ((m_Position.y - paddleBB.min.y) / (paddleBB.max.y - paddleBB.min.y));
+	relativePosition = std::max(-1.0f, std::min(1.0f, relativePosition));
+	float yDir = relativePosition * 0.6f;
+	float xDir = (m_Direction.x < 0) ? 1 - std::abs(yDir) : (1 - std::abs(yDir)) * -1;
+	m_Direction = { xDir, yDir };
+	m_Speed += 100;
+	
 }
 
 void Puck::OnUpdate(double delta)
 {
 	m_Position = m_Position + m_Direction * m_Speed * static_cast<float>(delta);
-}
-
-void Puck::Reset()
-{
-	
+	CheckWallCollision();
 }
 
 glm::mat4 Puck::GetModelMatrix() const
@@ -64,6 +65,14 @@ collision::BoundingBox Puck::GetBoundingBox() const
 
 void Puck::CheckWallCollision()
 {
-	
+	if(m_Position.y - m_Height / 2 < 0)
+	{
+		m_Position.y = m_Height / 2;
+		m_Direction.y *= -1;
+	} else if ( m_Position.y > 800)
+	{
+		m_Position.y = 800 - m_Height / 2;
+		m_Direction.y *= -1;
+	}
 }
 

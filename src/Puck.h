@@ -19,7 +19,7 @@ public:
 	void CheckPlayerCollision(class Paddle* player);
 
 	void OnUpdate(double delta) override;
-	void Reset();
+
 	Vector2 GetDirection() const { return m_Direction; }
 	Mesh* GetMesh() const { return m_Mesh; }
 	glm::mat4 GetModelMatrix() const;
