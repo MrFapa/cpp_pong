@@ -5,7 +5,7 @@
 Paddle::Paddle(int keyUp, int keyDown, Vector2 position)
 	: Entity(position), m_KeyUp(keyUp), m_KeyDown(keyDown)
 {
-	m_Mesh = PrimitiveFactory::Cube(10, m_Height / 2);
+	m_Mesh = PrimitiveFactory::Cube(m_Width / 2, m_Height / 2);
 }
 
 Paddle::~Paddle()
@@ -36,6 +36,16 @@ glm::mat4 Paddle::GetModelMatrix() const
 		m_Position.x, m_Position.y, 0.0f, 1.0f
 	};
 	return modelMatrix;
+}
+
+collision::BoundingBox Paddle::GetBoundingBox() const
+{
+	collision::BoundingBox boundingBox =
+	{
+		{m_Position.x - m_Width / 2.0f, m_Position.y - m_Height / 2.0f},
+		{m_Position.x + m_Width / 2.0f, m_Position.y + m_Height / 2.0f}
+	};
+	return boundingBox;
 }
 
 void Paddle::EdgeCheck()

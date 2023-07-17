@@ -33,6 +33,7 @@ public:
 	Entity(Vector2 position = { 0, 0 }) : m_Position(position){}
 
 	virtual void OnUpdate(double delta) {}
+	Vector2 GetPosition() const { return m_Position; }
 protected:
 	Vector2 m_Position;
 };

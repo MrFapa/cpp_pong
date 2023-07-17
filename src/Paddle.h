@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 
+#include "Collision.h"
 #include "glm/gtc/matrix_transform.hpp"
 #include "GL/glew.h"
 #include "Entity.h"
@@ -12,6 +13,7 @@ private:
 	int m_KeyDown;
 	int m_InputDirection = 0;
 	float m_Height = 80.0f;
+	float m_Width = 20.0f;
 	float m_Speed = 300.0f;
 	class Mesh* m_Mesh;
 public:
@@ -25,6 +27,7 @@ public:
 	Mesh* GetMesh() const { return m_Mesh; }
 	int GetKeyUp() const { return m_KeyUp; }
 	int GetKeyDown() const { return m_KeyDown; }
+	collision::BoundingBox GetBoundingBox() const;
 	
 private:
 	void EdgeCheck();

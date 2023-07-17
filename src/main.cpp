@@ -47,6 +47,7 @@ int main(void)
     while (!glfwWindowShouldClose(window))
     {
         double currentTimeStamp = glfwGetTime();
+        double deltaTime = currentTimeStamp - lastTimeStamp;
         glClear(GL_COLOR_BUFFER_BIT);
 
 
@@ -56,7 +57,7 @@ int main(void)
             // Invert direction
             paddle->ReceiveInput(glfwGetKey(window, paddle->GetKeyDown()) * -1);
 
-            paddle->OnUpdate(currentTimeStamp - lastTimeStamp);
+            paddle->OnUpdate(deltaTime);
 
             glm::mat4 model = paddle->GetModelMatrix();
             shader.SetUniformMat4("u_MVP", proj * view * model);
@@ -68,8 +69,18 @@ int main(void)
 
         glm::mat4 model = puck->GetModelMatrix();
         shader.SetUniformMat4("u_MVP", proj * view * model);
+        puck->OnUpdate(deltaTime);
+
+        if(puck->GetDirection().x < 0)
+        {
+            puck->CheckPlayerCollision(paddleLeft);
+        } else
+        {
+            puck->CheckPlayerCollision(paddleRight);
+        }
         puck->GetMesh()->Bind();
         puck->GetMesh()->Draw();
+       
 
         lastTimeStamp = currentTimeStamp;
         /* Swap front and back buffers */
