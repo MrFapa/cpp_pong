@@ -9,7 +9,7 @@ public:
 	{
 		Mesh* cube = new Mesh();
 		std::vector<float> vertexPositions = {
-			-halfWidth, -halfHeight,
+			-halfWidth, -halfHeight, 
 			 halfWidth, -halfHeight,
 			 halfWidth,  halfHeight,
 			-halfWidth,  halfHeight

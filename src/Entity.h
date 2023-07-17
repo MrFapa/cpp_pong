@@ -33,7 +33,6 @@ public:
 	Entity(Vector2 position = { 0, 0 }) : m_Position(position){}
 
 	virtual void OnUpdate(double delta) {}
-	virtual void OnDraw() {}
 protected:
 	Vector2 m_Position;
 };

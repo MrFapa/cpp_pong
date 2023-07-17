@@ -10,7 +10,7 @@ Paddle::Paddle(int keyUp, int keyDown, Vector2 position)
 
 Paddle::~Paddle()
 {
-	delete(m_Mesh);
+	delete m_Mesh;
 }
 
 void Paddle::OnUpdate(double delta)

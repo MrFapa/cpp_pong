@@ -4,6 +4,7 @@
 
 #include "glm/gtc/matrix_transform.hpp"
 #include "Paddle.h"
+#include "Puck.h"
 #include "Shader.h"
 
 int main(void)
@@ -38,8 +39,9 @@ int main(void)
         glm::vec3(0.0f, 0.0f, -1.0f),  // Target position (center)
         glm::vec3(0.0f, 1.0f, 0.0f)    // Up vector
     );
-    
 
+    Puck* puck = new Puck();
+    
     double lastTimeStamp = glfwGetTime();
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
@@ -63,10 +65,15 @@ int main(void)
             mesh->Bind();
             mesh->Draw();
         }
-        
+
+        glm::mat4 model = puck->GetModelMatrix();
+        shader.SetUniformMat4("u_MVP", proj * view * model);
+        puck->GetMesh()->Bind();
+        puck->GetMesh()->Draw();
+
         lastTimeStamp = currentTimeStamp;
         /* Swap front and back buffers */
-        glfwSwapBuffers(window);
+    	glfwSwapBuffers(window);
 
         /* Poll for and process events */
         glfwPollEvents();

@@ -5,8 +5,6 @@
 #include "GL/glew.h"
 #include "Entity.h"
 
-class Mesh;
-
 class Paddle : public Entity
 {
 private:
@@ -15,7 +13,7 @@ private:
 	int m_InputDirection = 0;
 	float m_Height = 80.0f;
 	float m_Speed = 300.0f;
-	Mesh* m_Mesh;
+	class Mesh* m_Mesh;
 public:
 	Paddle(int keyUp, int keyDown, Vector2 position = {0, 0});
 	~Paddle();
