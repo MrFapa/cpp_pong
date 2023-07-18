@@ -5,11 +5,15 @@
 class PrimitiveFactory
 {
 public:
+
+	// pivot of cube is the center
 	static Mesh* Cube(float width, float height)
 	{
 		float halfWidth = width / 2;
 		float halfHeight = height / 2;
+
 		Mesh* cube = new Mesh();
+
 		std::vector<float> vertexPositions = {
 			-halfWidth, -halfHeight, 
 			 halfWidth, -halfHeight,
@@ -24,4 +28,6 @@ public:
 		cube->SetVertexData(vertexPositions, indicies);
 		return cube;
 	}
+
+	// Extendable with further forms like triangle, circle, etc
 };

@@ -20,6 +20,8 @@ void Paddle::ReceiveInput(const int input)
 
 void Paddle::EdgeCheck()
 {
+	
+	// Limits position to the edge 
 	if(m_Position.y - m_Height / 2 < 0)
 	{
 		m_Position.y = m_Height / 2;

@@ -13,10 +13,12 @@ public:
 
 	virtual void OnUpdate(double delta) {}
 
+	// Getter
 	Vector2 GetPosition() const { return m_Position; }
-	virtual collision::BoundingBox GetBoundingBox() const;
-	virtual glm::mat4 GetModelMatrix() const;
+	virtual collision::BoundingBox GetBoundingBox() const; // Used for Collision
+	virtual glm::mat4 GetModelMatrix() const; // Model Matrix for MVP
 	virtual class Mesh* GetMesh() const { return m_Mesh; }
+
 protected:
 	float m_Width = 20;
 	float m_Height = 20;

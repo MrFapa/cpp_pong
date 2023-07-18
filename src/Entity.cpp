@@ -29,6 +29,7 @@ glm::mat4 Entity::GetModelMatrix() const
 
 collision::BoundingBox Entity::GetBoundingBox() const
 {
+	// Calculate the bounding box based on the position, width, and height
 	collision::BoundingBox boundingBox =
 	{
 		{m_Position.x - m_Width / 2.0f, m_Position.y - m_Height / 2.0f},

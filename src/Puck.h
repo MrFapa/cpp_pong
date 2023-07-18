@@ -6,7 +6,7 @@ class Puck : public Entity
 private:
 	
 	float m_Speed;
-	Vector2 m_Direction;
+	Vector2 m_Direction; // normalized 
 	
 public:
 	Puck();
@@ -17,6 +17,7 @@ public:
 
 	void OnUpdate(double delta) override;
 
+	// Getters
 	Vector2 GetDirection() const { return m_Direction; }
 
 private:

@@ -13,9 +13,9 @@ public:
 	void Draw();
 
 private:
-	unsigned int m_VB;
-	std::vector<float> m_VBData;
-	unsigned int m_IBO;
-	std::vector<unsigned int> m_IBOData;
-	unsigned int m_VAO;
+	unsigned int m_VB;					// Vertex Buffer ID
+	unsigned int m_IBO;					// Index Buffer ID
+	unsigned int m_VAO;					// Vertex Array ID
+	std::vector<float> m_VBData;		// Vertex Data
+	std::vector<unsigned int> m_IBOData;// Index Data
 };

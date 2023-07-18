@@ -11,12 +11,16 @@ namespace collision
 
 	static bool CheckAABBCollision(const BoundingBox& first, const BoundingBox& second)
 	{
+
+		// No overlap on x-axis
         if (first.max.x < second.min.x || first.min.x > second.max.x)
             return false;
-		
+
+		// No overlap on y-axis
         if (first.max.y < second.min.y || first.min.y > second.max.y)
             return false;
-		
+
+		// Boxed collide
         return true;
 	}
 }

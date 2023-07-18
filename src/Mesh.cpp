@@ -16,6 +16,8 @@ Mesh::~Mesh()
 	glDeleteVertexArrays(1, &m_VAO);
 }
 
+
+// Only supports 2d vertex position (maybe introduce uv's)
 void Mesh::SetVertexData(std::vector<float> vertexPositions, std::vector<unsigned> indexArray)
 {
 	glBindVertexArray(m_VAO);
@@ -48,7 +50,5 @@ void Mesh::Draw()
 {
 	glDrawElements(GL_TRIANGLES, m_IBOData.size(), GL_UNSIGNED_INT, 0);
 }
-
-
 
 
