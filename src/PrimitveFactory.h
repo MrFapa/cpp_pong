@@ -5,8 +5,10 @@
 class PrimitiveFactory
 {
 public:
-	static Mesh* Cube(float halfWidth, float halfHeight)
+	static Mesh* Cube(float width, float height)
 	{
+		float halfWidth = width / 2;
+		float halfHeight = height / 2;
 		Mesh* cube = new Mesh();
 		std::vector<float> vertexPositions = {
 			-halfWidth, -halfHeight, 

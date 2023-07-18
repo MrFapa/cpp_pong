@@ -1,17 +1,12 @@
 #include "Puck.h"
 
+#include <algorithm>
+
 #include "Paddle.h"
-#include "PrimitveFactory.h"
 
 Puck::Puck()
-	: Entity({500, 400}), m_Speed(200), m_Direction({1, 0})
+	: Entity({500, 400}, 20, 20), m_Speed(200), m_Direction({1, 0})
 {
-	m_Mesh = PrimitiveFactory::Cube(m_Width / 2.0f, m_Height / 2.0f);
-}
-
-Puck::~Puck()
-{
-	delete m_Mesh;
 }
 
 void Puck::CheckPlayerCollision(Paddle* paddle)
@@ -47,35 +42,11 @@ void Puck::CheckIfScored(Paddle* left, Paddle* right)
 	}
 }
 
-
 void Puck::OnUpdate(double delta)
 {
 	m_Position = m_Position + m_Direction * m_Speed * static_cast<float>(delta);
 	CheckWallCollision();
 }
-
-glm::mat4 Puck::GetModelMatrix() const
-{
-	// Transposed because of OpenGL
-	glm::mat4 modelMatrix = {
-		1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f, 0.0f,
-		m_Position.x, m_Position.y, 0.0f, 1.0f
-	};
-	return modelMatrix;
-}
-
-collision::BoundingBox Puck::GetBoundingBox() const
-{
-	collision::BoundingBox boundingBox =
-	{
-		{m_Position.x - m_Width / 2.0f, m_Position.y - m_Height / 2.0f},
-		{m_Position.x + m_Width / 2.0f, m_Position.y + m_Height / 2.0f}
-	};
-	return boundingBox;
-}
-
 
 void Puck::CheckWallCollision()
 {
@@ -83,7 +54,7 @@ void Puck::CheckWallCollision()
 	{
 		m_Position.y = m_Height / 2;
 		m_Direction.y *= -1;
-	} else if ( m_Position.y > 800)
+	} else if ( m_Position.y + m_Height / 2 > 800)
 	{
 		m_Position.y = 800 - m_Height / 2;
 		m_Direction.y *= -1;

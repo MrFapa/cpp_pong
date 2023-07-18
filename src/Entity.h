@@ -1,39 +1,26 @@
 #pragma once
+#include <glm/gtc/matrix_transform.hpp>
 
-struct Vector2
-{
-	float x, y;
+#include "Collision.h"
+#include "Vector2.h"
 
-	Vector2(float xVal, float yVal) : x(xVal), y(yVal){}
-
-	Vector2 operator+ (const Vector2& other) const
-	{
-		return { this->x + other.x, this->y + other.y };
-	}
-
-	Vector2 operator- (const Vector2& other) const
-	{
-		return { this->x - other.x, this->y - other.y };
-	}
-
-	Vector2 operator* (const float& scalar) const
-	{
-		return { this->x * scalar, this->y * scalar };
-	}
-};
-
-struct Input
-{
-	int key, state;
-};
 
 class Entity
 {
 public:
-	Entity(Vector2 position = { 0, 0 }) : m_Position(position){}
+	Entity(Vector2 position = { 0, 0 }, float width = 10, float height = 10);
+	~Entity();
 
 	virtual void OnUpdate(double delta) {}
+
 	Vector2 GetPosition() const { return m_Position; }
+	virtual collision::BoundingBox GetBoundingBox() const;
+	virtual glm::mat4 GetModelMatrix() const;
+	virtual class Mesh* GetMesh() const { return m_Mesh; }
 protected:
+	float m_Width = 20;
+	float m_Height = 20;
+
 	Vector2 m_Position;
+	class Mesh* m_Mesh;
 };

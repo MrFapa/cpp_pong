@@ -146,6 +146,7 @@
     </Text>
     <Text Include="assets\shaders\fBase.shader" />
     <ClCompile Include="src\Collision.h" />
+    <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Paddle.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="src\Paddle.h" />
     <ClInclude Include="src\Puck.h" />
     <ClInclude Include="src\Shader.h" />
+    <ClInclude Include="src\Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

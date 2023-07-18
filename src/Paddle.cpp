@@ -1,16 +1,8 @@
 #include "Paddle.h"
-#include "Mesh.h"
-#include "PrimitveFactory.h"
 
 Paddle::Paddle(int keyUp, int keyDown, Vector2 position)
-	: Entity(position), m_KeyUp(keyUp), m_KeyDown(keyDown)
+	: Entity(position, 20, 80), m_KeyUp(keyUp), m_KeyDown(keyDown)
 {
-	m_Mesh = PrimitiveFactory::Cube(m_Width / 2, m_Height / 2);
-}
-
-Paddle::~Paddle()
-{
-	delete m_Mesh;
 }
 
 void Paddle::OnUpdate(double delta)
@@ -24,28 +16,6 @@ void Paddle::OnUpdate(double delta)
 void Paddle::ReceiveInput(const int input)
 {
 	m_InputDirection += input;
-}
-
-glm::mat4 Paddle::GetModelMatrix() const
-{
-	// Transposed because of OpenGL
-	glm::mat4 modelMatrix = {
-		1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f, 0.0f,
-		m_Position.x, m_Position.y, 0.0f, 1.0f
-	};
-	return modelMatrix;
-}
-
-collision::BoundingBox Paddle::GetBoundingBox() const
-{
-	collision::BoundingBox boundingBox =
-	{
-		{m_Position.x - m_Width / 2.0f, m_Position.y - m_Height / 2.0f},
-		{m_Position.x + m_Width / 2.0f, m_Position.y + m_Height / 2.0f}
-	};
-	return boundingBox;
 }
 
 void Paddle::EdgeCheck()

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Entity.h"
+#include "Vector2.h"
 namespace collision
 {
 	struct BoundingBox
