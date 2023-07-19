@@ -9,7 +9,7 @@ class Entity
 {
 public:
 	Entity(Vector2 position = { 0, 0 }, float width = 10, float height = 10);
-	~Entity();
+	virtual ~Entity();
 
 	virtual void OnUpdate(double delta) {}
 

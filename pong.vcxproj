@@ -150,6 +150,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Paddle.cpp" />
+    <ClCompile Include="src\Pong.cpp" />
     <ClCompile Include="src\PrimitveFactory.h" />
     <ClCompile Include="src\Puck.cpp" />
     <ClCompile Include="src\Shader.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Paddle.h" />
+    <ClInclude Include="src\Pong.h" />
     <ClInclude Include="src\Puck.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Vector2.h" />

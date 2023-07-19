@@ -10,7 +10,6 @@ private:
 	
 public:
 	Puck();
-	~Puck();
 
 	void CheckPlayerCollision(class Paddle* paddle);
 	void CheckIfScored(class Paddle* left, class Paddle* right);
