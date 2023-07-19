@@ -160,6 +160,7 @@
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Paddle.h" />
     <ClInclude Include="src\Pong.h" />
+    <ClInclude Include="src\PongConfig.h" />
     <ClInclude Include="src\Puck.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Vector2.h" />

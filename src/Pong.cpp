@@ -3,6 +3,8 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
+#include "PongConfig.h"
+
 #include "Paddle.h"
 #include "Puck.h"
 #include "Mesh.h"
@@ -13,8 +15,8 @@ Pong::Pong()
 {
     // Game Objects
     m_Puck = new Puck();
-    m_PaddleLeft = new Paddle(GLFW_KEY_W, GLFW_KEY_S, { 30, 400 });
-    m_PaddleRight = new Paddle(GLFW_KEY_UP, GLFW_KEY_DOWN, { 970, 400 });
+    m_PaddleLeft = new Paddle(GLFW_KEY_W, GLFW_KEY_S, { PADDLE_WIDTH, WINDOW_HEIGHT / 2 });
+    m_PaddleRight = new Paddle(GLFW_KEY_UP, GLFW_KEY_DOWN, { WINDOW_WIDTH - PADDLE_WIDTH, WINDOW_HEIGHT / 2 });
     m_Paddles = { m_PaddleLeft, m_PaddleRight };
 
     // Render Objects
@@ -33,6 +35,8 @@ void Pong::OnUpdate(double deltaTime, GLFWwindow* window)
 {
     for (Paddle* paddle : m_Paddles)
     {
+        if(!paddle)
+            continue;
         paddle->ReceiveInput(glfwGetKey(window, paddle->GetKeyUp()));
         // Invert direction
         paddle->ReceiveInput(glfwGetKey(window, paddle->GetKeyDown()) * -1);
@@ -41,23 +45,28 @@ void Pong::OnUpdate(double deltaTime, GLFWwindow* window)
         
     }
 
-    m_Puck->OnUpdate(deltaTime);
-    m_Puck->CheckIfScored(m_PaddleLeft, m_PaddleRight);
+    if(m_Puck)
+    {
+        m_Puck->OnUpdate(deltaTime);
+        m_Puck->CheckIfScored(m_PaddleLeft, m_PaddleRight);
 
-    if (m_Puck->GetDirection().x < 0)
-    {
-        m_Puck->CheckPlayerCollision(m_PaddleLeft);
+        // Only check paddle for the direction the puck is moving to
+        if (m_Puck->GetDirection().x < 0)
+        {
+            m_Puck->CheckPlayerCollision(m_PaddleLeft);
+        }
+        else
+        {
+            m_Puck->CheckPlayerCollision(m_PaddleRight);
+        }
     }
-    else
-    {
-        m_Puck->CheckPlayerCollision(m_PaddleRight);
-    }
+    
 }
 
 void Pong::OnRender()
 {
     // could make constant (should make constant)
-    glm::mat4 proj = glm::ortho(0.0f, 1000.0f, 0.0f, 800.0f, -1.0f, 1.0f);
+    glm::mat4 proj = glm::ortho(0.0f, (float) WINDOW_WIDTH, 0.0f, (float) WINDOW_HEIGHT, -1.0f, 1.0f);
     glm::mat4 view = glm::lookAt(
         glm::vec3(0.0f, 0.0f, 0.0f),   // Camera position (eye)
         glm::vec3(0.0f, 0.0f, -1.0f),  // Target position (center)
@@ -66,6 +75,8 @@ void Pong::OnRender()
 
     for (Paddle* paddle : m_Paddles)
     {
+        if (!paddle)
+            continue;
         glm::mat4 model = paddle->GetModelMatrix();
         m_Shader->SetUniformMat4("u_MVP", proj * view * model);
 
@@ -74,9 +85,13 @@ void Pong::OnRender()
         mesh->Draw();
     }
 
-    glm::mat4 model = m_Puck->GetModelMatrix();
-    m_Shader->SetUniformMat4("u_MVP", proj * view * model);
+    if(m_Puck)
+    {
+        glm::mat4 model = m_Puck->GetModelMatrix();
+        m_Shader->SetUniformMat4("u_MVP", proj * view * model);
 
-    m_Puck->GetMesh()->Bind();
-    m_Puck->GetMesh()->Draw();
+        m_Puck->GetMesh()->Bind();
+        m_Puck->GetMesh()->Draw();
+    }
+   
 }

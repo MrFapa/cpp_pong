@@ -20,8 +20,8 @@ public:
 	virtual class Mesh* GetMesh() const { return m_Mesh; }
 
 protected:
-	float m_Width = 20;
-	float m_Height = 20;
+	float m_Width;
+	float m_Height;
 
 	Vector2 m_Position;
 	class Mesh* m_Mesh;

@@ -65,6 +65,9 @@
     <ClInclude Include="src\Pong.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\PongConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\shaders\vBase.shader">

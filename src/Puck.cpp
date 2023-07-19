@@ -3,11 +3,13 @@
 #include <algorithm>
 #include <iostream>
 
+#include "PongConfig.h"
+
 #include "Paddle.h"
 
 
 Puck::Puck()
-	: Entity({500, 400}, 20, 20), m_Speed(200), m_Direction({1, 0})
+	: Entity({WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2}, PUCK_SIZE, PUCK_SIZE), m_Speed(PUCK_SPEED), m_Direction({1, 0})
 {
 }
 
@@ -23,7 +25,9 @@ void Puck::CheckPlayerCollision(Paddle* paddle)
 		return;
 	}
 
-	m_Position.x = (m_Direction.x < 0) ? paddleBB.max.x : paddleBB.min.x;
+	// Set position to edge of hit paddle (left paddle = right edge, right paddle = left edge
+	// if puck is moving right means it hits right paddle
+	m_Position.x = (m_Direction.x < 0) ? paddleBB.max.x + m_Width / 2.0f : paddleBB.min.x - m_Width / 2.0f;
 
 	// Get relative position of puck from -1 (bottom) to 1 (top)
 	float relativePosition = -1.0f + 2.0f * ((m_Position.y - paddleBB.min.y) / (paddleBB.max.y - paddleBB.min.y));
@@ -35,10 +39,10 @@ void Puck::CheckPlayerCollision(Paddle* paddle)
 	// redirect angle limited by the constant (1.0f 90deg, 0.0f 0deg),
 	// x gets the remaining from 1 - yDir so that the direction is normalized
 	
-	float yDir = relativePosition * 0.6f;
+	float yDir = relativePosition * (PUCK_MAX_BOUNCE_ANGLE / 90.0f);
 	float xDir = (m_Direction.x < 0) ? 1 - std::abs(yDir) : (1 - std::abs(yDir)) * -1;
 	m_Direction = { xDir, yDir };
-	m_Speed += 50;
+	m_Speed += PUCK_SPEED_INCREMENT;
 	
 }
 
@@ -48,8 +52,8 @@ void Puck::CheckIfScored(Paddle* left, Paddle* right)
 	{
 		right->IncrementScore();
 		Reset(false);
-		std::cout << left->GetScore() << " : " << right->GetScore() << std::endl;
-	} else if(m_Position.x + m_Width / 2 > 1000)
+		std::cout << right->GetScore() << " : " << right->GetScore() << std::endl;
+	} else if(m_Position.x + m_Width / 2 > WINDOW_WIDTH)
 	{
 		left->IncrementScore();
 		Reset(true);
@@ -69,9 +73,9 @@ void Puck::CheckWallCollision()
 	{
 		m_Position.y = m_Height / 2;
 		m_Direction.y *= -1;
-	} else if ( m_Position.y + m_Height / 2 > 800)
+	} else if ( m_Position.y + m_Height / 2 > WINDOW_HEIGHT)
 	{
-		m_Position.y = 800 - m_Height / 2;
+		m_Position.y = WINDOW_HEIGHT - m_Height / 2;
 		m_Direction.y *= -1;
 	}
 }
@@ -79,8 +83,8 @@ void Puck::CheckWallCollision()
 void Puck::Reset(bool leftScored)
 {
 	m_Direction = { leftScored ? 1.0f : -1.0f, 0.0f };
-	m_Speed = 200;
-	m_Position = { 500, 400 };
+	m_Speed = PUCK_SPEED;
+	m_Position = { WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2};
 }
 
 

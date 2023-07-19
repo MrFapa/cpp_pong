@@ -1,7 +1,14 @@
+#include <memory>
+
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
+#include "PongConfig.h"
+
 #include "Pong.h"
+
+
+
 int main(void)
 {
     GLFWwindow* window;
@@ -12,7 +19,7 @@ int main(void)
 
     // Size should be variable, hard coded so far
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(1000, 800, "Pong", NULL, NULL);
+    window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Pong", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -23,7 +30,8 @@ int main(void)
     glfwMakeContextCurrent(window);
     glewInit();
 
-    Pong* pong = new Pong();
+    std::unique_ptr<Pong> pong = std::make_unique<Pong>();
+
 
     double lastTimeStamp = glfwGetTime();
     /* Loop until the user closes the window */

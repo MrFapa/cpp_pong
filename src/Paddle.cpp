@@ -1,7 +1,9 @@
 #include "Paddle.h"
 
+#include "PongConfig.h"
+
 Paddle::Paddle(int keyUp, int keyDown, Vector2 position)
-	: Entity(position, 20, 80), m_KeyUp(keyUp), m_KeyDown(keyDown)
+	: Entity(position, PADDLE_WIDTH, PADDLE_HEIGHT), m_KeyUp(keyUp), m_KeyDown(keyDown), m_Speed(PADDLE_SPEED)
 {
 }
 
@@ -26,9 +28,9 @@ void Paddle::EdgeCheck()
 	{
 		m_Position.y = m_Height / 2;
 	}
-	else if (m_Position.y + m_Height / 2 > 800)
+	else if (m_Position.y + m_Height / 2 > WINDOW_HEIGHT)
 	{
-		m_Position.y = 800 - m_Height / 2;
+		m_Position.y = WINDOW_HEIGHT - m_Height / 2;
 	}
 }
 
